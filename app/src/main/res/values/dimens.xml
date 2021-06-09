@@ -1,0 +1,10 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="stroke">2</dimen>
+    <dimen name="cornerRadius">14dp</dimen>
+    <dimen name="stroke_thickness">1dp</dimen>
+    <dimen name="burger_lines">50dp</dimen>
+    <dimen name="burger_button_size">60dp</dimen>
+    <dimen name="toolbarTitle">16dp</dimen>
+    <dimen name="margin_mobile">20dp</dimen>
+</resources>

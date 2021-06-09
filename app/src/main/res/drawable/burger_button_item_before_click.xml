@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <solid android:color="@color/primary_blue"/>
+            <corners android:radius="@dimen/burger_button_size" />
+            <size android:height="@dimen/burger_button_size" android:width="@dimen/burger_button_size"/>
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/burger_button_lines_white"
+        android:gravity="center"
+        >
+    </item>
+<!--    <item android:drawable="@drawable/ic_menu_white_24dp"/>-->
+</layer-list>
