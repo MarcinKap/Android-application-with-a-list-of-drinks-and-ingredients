@@ -138,6 +138,8 @@ public class DrinkListFromApiAdapter extends RecyclerView.Adapter<DrinkListFromA
 
             addDrinkToDatabaseButton.setVisibility(View.VISIBLE);
             hideDetails();
+
+
             checkIsModelInDatabase(drinkModelFromApi);
 
             singleDrinkFrame.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +157,7 @@ public class DrinkListFromApiAdapter extends RecyclerView.Adapter<DrinkListFromA
             addDrinkToDatabaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    drinkSavedId.add(drinkModelFromApi.getStrDrink());
                     drinkService.saveDrinkEntity(drinkModelFromApi);
                     addDrinkToDatabaseButton.setVisibility(View.GONE);
                 }

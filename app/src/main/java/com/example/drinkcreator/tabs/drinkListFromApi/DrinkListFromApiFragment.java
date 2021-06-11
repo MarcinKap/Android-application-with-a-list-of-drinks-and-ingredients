@@ -143,6 +143,64 @@ public class DrinkListFromApiFragment extends Fragment {
             }
         });
 
+        Button findDrinksListByName = rootView.findViewById(R.id.button_find_drink_by_name);
+        findDrinksListByName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView inputSingleChar = rootView.findViewById(R.id.edit_text_name_drink);
+
+                String nameOfDrinks = inputSingleChar.getText().toString();
+
+                ApiUtils.getApiService().getDrinkListFromApiByName(nameOfDrinks)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new DisposableObserver<Response<ObjectModelWithListFromApi>>() {
+                            @Override
+                            public void onNext(@NonNull Response<ObjectModelWithListFromApi> response) {
+                                drinkModelFromApiList = response.body().getDrinks();
+
+                                if(drinkModelFromApiList!=null){
+                                    List<String> drinkEntityList = new ArrayList<>();
+                                    for (DrinkModelFromApi drinkModelFromApi: drinkModelFromApiList
+                                    ) {
+                                        String strDrink = drinkModelFromApi.getStrDrink();
+                                        AndroidDatabase androidDatabase = AndroidDatabase.getAndroidDatabase(context);
+                                        androidDatabase.getQueryExecutor().execute(() -> {
+                                            DrinkEntity drinkEntity2 = androidDatabase.drinkEntityDAO().getEntityByExternalId(strDrink);
+                                            if (drinkEntity2!=null){
+                                                drinkEntityList.add(drinkEntity2.getStrDrink());
+                                            }
+                                        });
+                                    }
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container_fragment, new DrinkListFromApiFragment(context, drinkModelFromApiList, drinkEntityList))
+                                            .commit();
+                                }else {
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.container_fragment, new DrinkListFromApiFragment(context))
+                                            .commit();
+                                }
+
+
+
+                            }
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.e("API_CALL", e.getMessage(), e);
+                            }
+                            @Override
+                            public void onComplete() {
+                            }
+                        });
+
+
+            }
+        });
+
+
+
+
+
 
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 //import com.example.drinkcreator.database.AndroidDatabase;
 import com.example.drinkcreator.database.AndroidDatabase;
 import com.example.drinkcreator.database.entity.DrinkEntity;
+import com.example.drinkcreator.tabs.drinkCreator.DrinkCreatorFragment;
 import com.example.drinkcreator.tabs.drinkListFromApi.DrinkListFromApiFragment;
 import com.example.drinkcreator.tabs.drinkListFromDatabase.DrinkListFromDatabaseFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -76,6 +77,10 @@ public class MainActivity extends AppCompatActivity {
                         runDrinkListFromDatabaseFragment();
                         pageTitle.setText(R.string.drink_list_from_database_title);
                         break;
+                    case "createOwnDrinks":
+                        runCreatorDrinkFragment();
+                        pageTitle.setText(R.string.create_own_drinks_title);
+                        break;
                 }
             }
 
@@ -87,11 +92,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initNavigationDrawer() {
 
-
-//        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer_menu, R.string.close_drawer_menu);
-//        drawerLayout.addDrawerListener(mActionBarDrawerToggle);
-//        mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-//        mActionBarDrawerToggle.syncState();
     }
 
     public void closeOrOpenNavigationDrawer(View view) {
@@ -131,7 +131,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button createOwnDrinks = findViewById(R.id.your_own_drink);
+        createOwnDrinks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                pressedButton = "createOwnDrinks";
+                pageTitle.setText(R.string.create_own_drinks_title);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                runCreatorDrinkFragment();
+
+            }
+        });
+
+
+
+    }
+
+    private void runCreatorDrinkFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_fragment, new DrinkCreatorFragment(getApplicationContext()))
+                .commit();
     }
 
     private void runDrinkListFromApiFragment() {

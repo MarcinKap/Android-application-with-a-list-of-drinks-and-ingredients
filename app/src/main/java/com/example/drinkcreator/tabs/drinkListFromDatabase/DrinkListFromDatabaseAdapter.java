@@ -205,49 +205,49 @@ public class DrinkListFromDatabaseAdapter extends RecyclerView.Adapter<DrinkList
         }
 
         void checkIsNull(DrinkEntity drinkEntity) {
-            if (drinkEntity.getStrIngredient1() == null) {
+            if (drinkEntity.getStrIngredient1() == null || drinkEntity.getStrIngredient1().equals("")) {
                 drinkIngredient1.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient2() == null) {
+            if (drinkEntity.getStrIngredient2() == null || drinkEntity.getStrIngredient2().equals("")) {
                 drinkIngredient2.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient3() == null) {
+            if (drinkEntity.getStrIngredient3() == null || drinkEntity.getStrIngredient3().equals("")) {
                 drinkIngredient3.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient4() == null) {
+            if (drinkEntity.getStrIngredient4() == null || drinkEntity.getStrIngredient4().equals("")) {
                 drinkIngredient4.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient5() == null) {
+            if (drinkEntity.getStrIngredient5() == null || drinkEntity.getStrIngredient5().equals("")) {
                 drinkIngredient5.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient6() == null) {
+            if (drinkEntity.getStrIngredient6() == null || drinkEntity.getStrIngredient6().equals("")) {
                 drinkIngredient6.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient7() == null) {
+            if (drinkEntity.getStrIngredient7() == null || drinkEntity.getStrIngredient7().equals("")) {
                 drinkIngredient7.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient8() == null) {
+            if (drinkEntity.getStrIngredient8() == null || drinkEntity.getStrIngredient8().equals("") ){
                 drinkIngredient8.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient9() == null) {
+            if (drinkEntity.getStrIngredient9() == null || drinkEntity.getStrIngredient9().equals("")) {
                 drinkIngredient9.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient10() == null) {
+            if (drinkEntity.getStrIngredient10() == null || drinkEntity.getStrIngredient10().equals("")) {
                 drinkIngredient10.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient11() == null) {
+            if (drinkEntity.getStrIngredient11() == null || drinkEntity.getStrIngredient11().equals("")) {
                 drinkIngredient11.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient12() == null) {
+            if (drinkEntity.getStrIngredient12() == null || drinkEntity.getStrIngredient12().equals("")) {
                 drinkIngredient12.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient13() == null) {
+            if (drinkEntity.getStrIngredient13() == null || drinkEntity.getStrIngredient13().equals("")) {
                 drinkIngredient13.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient14() == null) {
+            if (drinkEntity.getStrIngredient14() == null || drinkEntity.getStrIngredient14().equals("")) {
                 drinkIngredient14.setVisibility(View.GONE);
             }
-            if (drinkEntity.getStrIngredient15() == null) {
+            if (drinkEntity.getStrIngredient15() == null || drinkEntity.getStrIngredient15().equals("")) {
                 drinkIngredient15.setVisibility(View.GONE);
             }
 
