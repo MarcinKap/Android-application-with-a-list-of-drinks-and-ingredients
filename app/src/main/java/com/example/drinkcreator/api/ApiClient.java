@@ -19,7 +19,7 @@ public class ApiClient {
             return chain.proceed(request);
         });
         return new Retrofit.Builder()
-                .baseUrl("https://api.nbp.pl")
+                .baseUrl("https://www.thecocktaildb.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(httpClient.build())

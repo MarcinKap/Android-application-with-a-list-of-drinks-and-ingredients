@@ -86,7 +86,8 @@
                         style="@style/android_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/mainMenu" />
+                        android:text="@string/mainMenu"
+                        tools:visibility="gone" />
 
                     <Button
                         android:id="@+id/drink_list_from_api"

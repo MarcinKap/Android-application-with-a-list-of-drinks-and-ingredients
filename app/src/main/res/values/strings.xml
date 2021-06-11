@@ -15,4 +15,6 @@
     <string name="drink_list_from_api">Znajdź drinki</string>
     <string name="drink_list_from_database">Lista zapisanych drinków</string>
     <string name="your_own_drink">Stwórz własny drink</string>
+    <string name="drink_list_from_api_title">Szukanie drinków</string>
+    <string name="drink_list_from_database_title">Lista zapisanych drinków</string>
 </resources>

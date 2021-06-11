@@ -3,48 +3,36 @@ package com.example.drinkcreator;
 import android.os.Bundle;
 
 //import com.example.drinkcreator.database.AndroidDatabase;
+import com.example.drinkcreator.database.AndroidDatabase;
+import com.example.drinkcreator.database.entity.DrinkEntity;
+import com.example.drinkcreator.tabs.drinkListFromApi.DrinkListFromApiFragment;
+import com.example.drinkcreator.tabs.drinkListFromDatabase.DrinkListFromDatabaseFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.drinkcreator.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.Optional;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private TextView pageTitle;
+
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private String pressedButton;
-//    private AndroidDatabase androidDatabase;
-
-    TextView tabName;
+    private AndroidDatabase androidDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
         pressedButton = "homePage";
 
-//        androidDatabase = AndroidDatabase.getAndroidDatabase(getApplicationContext());
-
+        androidDatabase = AndroidDatabase.getAndroidDatabase(getApplicationContext());
 
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
-
         navigationView = findViewById(R.id.navigation_view);
-
         toolbar = findViewById(R.id.toolbar);
-
-        tabName = navigationView.findViewById(R.id.toolbar_selected_menu);
+        pageTitle = findViewById(R.id.toolbar_selected_item_menu_drawer_txt);
 
 
         initNavigationDrawer();
@@ -84,12 +68,19 @@ public class MainActivity extends AppCompatActivity {
 
             if (pressedButton != null) {
                 switch (pressedButton) {
-                    case "":
+                    case "drinkListFromApiButton":
+                        runDrinkListFromApiFragment();
+                        pageTitle.setText(R.string.drink_list_from_api_title);
+                        break;
+                    case "drinkListFromDatabaseButton":
+                        runDrinkListFromDatabaseFragment();
+                        pageTitle.setText(R.string.drink_list_from_database_title);
                         break;
                 }
             }
 
         } else {
+            pageTitle.setText("Main menu");
             pressedButton = "mainButton";
         }
     }
@@ -97,14 +88,10 @@ public class MainActivity extends AppCompatActivity {
     private void initNavigationDrawer() {
 
 
-
-
 //        ActionBarDrawerToggle mActionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer_menu, R.string.close_drawer_menu);
 //        drawerLayout.addDrawerListener(mActionBarDrawerToggle);
 //        mActionBarDrawerToggle.setDrawerIndicatorEnabled(true);
 //        mActionBarDrawerToggle.syncState();
-
-
     }
 
     public void closeOrOpenNavigationDrawer(View view) {
@@ -117,6 +104,53 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void buttonsListeners() {
+
+        Button drinkListFromApiButton = findViewById(R.id.drink_list_from_api);
+        drinkListFromApiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                pressedButton = "drinkListFromApiButton";
+                pageTitle.setText(R.string.drink_list_from_api_title);
+                drawerLayout.closeDrawer(GravityCompat.START);
+                runDrinkListFromApiFragment();
+
+            }
+        });
+
+        Button drinkListFromDatabaseButton = findViewById(R.id.drink_list_from_database);
+        drinkListFromDatabaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageTitle.setText(R.string.drink_list_from_database_title);
+                pressedButton = "drinkListFromDatabaseButton";
+                drawerLayout.closeDrawer(GravityCompat.START);
+                runDrinkListFromDatabaseFragment();
+
+            }
+        });
+
+
+    }
+
+    private void runDrinkListFromApiFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_fragment, new DrinkListFromApiFragment(getApplicationContext()))
+                .commit();
+    }
+
+    private void runDrinkListFromDatabaseFragment() {
+        androidDatabase.getQueryExecutor().execute(() -> {
+            //usuwanie przestarzałego tokena wraz z użytkownikiem
+            List<DrinkEntity> drinkEntityList = androidDatabase.drinkEntityDAO().getAll();
+            System.out.println("wielkosc bazy: " + drinkEntityList.size());
+            //przejscie do aktywnosci start
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container_fragment, new DrinkListFromDatabaseFragment(getApplicationContext(), drinkEntityList))
+                    .commit();
+        });
+
 
     }
 
