@@ -37,24 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         pressedButton = "homePage";
-
         androidDatabase = AndroidDatabase.getAndroidDatabase(getApplicationContext());
-
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         toolbar = findViewById(R.id.toolbar);
         pageTitle = findViewById(R.id.toolbar_selected_item_menu_drawer_txt);
-
-
         initNavigationDrawer();
         viewManagement(savedInstanceState);
         buttonsListeners();
-
     }
 
     @Override
@@ -109,13 +103,10 @@ public class MainActivity extends AppCompatActivity {
         drinkListFromApiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 pressedButton = "drinkListFromApiButton";
                 pageTitle.setText(R.string.drink_list_from_api_title);
                 drawerLayout.closeDrawer(GravityCompat.START);
                 runDrinkListFromApiFragment();
-
             }
         });
 
@@ -135,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
         createOwnDrinks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 pressedButton = "createOwnDrinks";
                 pageTitle.setText(R.string.create_own_drinks_title);
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -171,8 +160,6 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container_fragment, new DrinkListFromDatabaseFragment(getApplicationContext(), drinkEntityList))
                     .commit();
         });
-
-
     }
 
 
